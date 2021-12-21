@@ -40,6 +40,7 @@ namespace API
                 config.RegisterValidatorsFromAssemblyContaining<Create>();
             });
             services.AddApplicationServices(Configuration);
+            services.AddIdentityServices(Configuration);
         }
 
         private void AddApplicationServices(IConfiguration configuration)

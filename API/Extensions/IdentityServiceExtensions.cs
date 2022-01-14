@@ -1,5 +1,6 @@
 using API.Services;
 using Domain;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,8 +18,8 @@ namespace API.Extensions
             })
             .AddEntityFrameworkStores<DataContext>()
             .AddSignInManager<SignInManager<AppUser>>();
-            
-            services.AddAuthentication();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);
             services.AddScoped<TokenService>();
             return services;
         }

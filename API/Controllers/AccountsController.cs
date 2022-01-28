@@ -1,4 +1,5 @@
 using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using API.DTOs;
 using API.Services;
@@ -82,6 +83,21 @@ namespace API.Controllers
             }
 
             return BadRequest("An error occured");
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<ActionResult<UserDTO>> GetCurrentUser()
+        {
+            var user = await _userManager.FindByEmailAsync(ClaimTypes.Email);
+
+            return new UserDTO
+            {
+                Image = "some image",
+                Token = _tokenService.CreateToken(user),
+                Username = user.UserName,
+                DisplayName = user.DisplayName
+            };
         }
     }
 }
